@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+
+<table name="sample_table" resource="default" engine="innodb" comment="pincode_table">
+   
+      <column xsi:type="int" name="entity_id" unsigned="false" nullable="false" identity="true" />
+
+      <column xsi:type="int" name="pincode" unsigned="false" nullable="false" comment="pincode" />
+      <column xsi:type="varchar" name="state" nullable="false" length="40" comment="state" />
+     <column xsi:type="varchar" name="city" nullable="false" length="40" comment="city" />
+     <column xsi:type="varchar" name="days" nullable="false" length="80" comment="days" />
+
+     
+      <constraint xsi:type="primary" referenceId="PRIMARY">
+         <column name="entity_id" />
+      </constraint>
+
+       <constraint xsi:type="unique" referenceId="CUSTOMER_RECORDS_COUPON_CODE_STORE_ID">
+            <column name="pincode"/>
+        </constraint>
+
+   </table>
+
+
+</schema>

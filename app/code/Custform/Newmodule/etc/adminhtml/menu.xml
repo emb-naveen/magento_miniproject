@@ -1,0 +1,38 @@
+<!-- <?xml version="1.0"?>
+
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+    
+<!-- Parent  -->
+
+        <add id="Custform_Newmodule::newmodule"
+        title="Add PINCODE" 
+        translate="title" 
+        module="Custform_Newmodule"
+        sortOrder="0" 
+        resource="Custform_Newmodule::newmodule"/>
+
+<!-- CHILD  -->
+        <add id="Custform_Newmodule::customer_manage"
+        title="All pincode" 
+        translate="title"
+        module="Custform_Newmodule" 
+        parent="Custform_Newmodule::newmodule" 
+        action="newmodule/newmodule/" 
+        resource="Custform_Newmodule::manage"/>
+
+
+        <add id="Custform_Newmodule::customer_grid"
+        title="New Pincode" 
+        translate="title"
+        module="Custform_Newmodule" 
+        parent="Custform_Newmodule::newmodule" 
+        action="newmodule/newmodule/employee" 
+        resource="Custform_Newmodule::manage"/>
+        </menu>
+</config> 

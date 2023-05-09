@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+<type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="newmodule_listing_data_source" xsi:type="string">Custform\Newmodule\Model\ResourceModel\Newmodule\Grid\Collection</item>
+             </argument>
+        </arguments>
+    </type>
+    <type name="Custform\Newmodule\Model\ResourceModel\Newmodule\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">sample_table</argument>
+            <argument name="eventPrefix" xsi:type="string">newmodule_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">newmodule_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Custform\Newmodule\Model\ResourceModel\newmodule</argument>
+        </arguments>
+    </type>
+</config>
