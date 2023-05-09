@@ -39,11 +39,17 @@
         <?= $block->getChildHtml('form_bottom') ?>
     </form>
 </div>
-<form >
-<input type="text" name="product" value=" " />
+
+
+ <!-- module overided code -->
+
+<form action="" id="delivery-date-form">
+<input type="number" value="" id="pincode" name="pincode" style="width: 200px;" placeholder="Pincode"/>
+<button type="submit" id="delivery-date-submit" value="Submit" Check style="background-color: #f55d05;">Check</button>
+<div id="delivery-date-result" style="color: #f55d05;"></div>
 </form>
 
-<?php echo"ghghghghghgg";?>
+
 
 <script type="text/x-magento-init">
     {
@@ -54,3 +60,28 @@
         }
     }
 </script>
+
+<script>
+
+    // ajax request for pincode to controller
+
+require(['jquery'], function($) {
+    $(document).ready(function() {
+        $('#delivery-date-form').submit(function(event) {
+            event.preventDefault();
+            $.ajax({
+                url: '<?php echo $block->getBaseUrl() . 'mymodule/index/deliverydate'; ?>',
+                type: 'POST',
+                data: $('#delivery-date-form').serialize(),
+                success: function(data) {
+                    $('#delivery-date-result').html(data);
+                }
+            });
+        });
+    });
+});
+</script>
+
+
+
+

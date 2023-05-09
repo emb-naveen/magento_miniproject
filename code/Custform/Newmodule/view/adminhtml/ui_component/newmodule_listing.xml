@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">newmodule_listing.newmodule_listing_data_source</item>
+        </item>
+    </argument>
+    <settings>
+        <buttons>
+            <button name="add">
+                <url path="*/*/employee"/>
+                <class>primary</class>
+                <label translate="true">Add New pincode</label>
+            </button>
+        </buttons>
+        <spinner>cms_block_columns</spinner>
+        <deps>
+            <dep>newmodule_listing.newmodule_listing_data_source</dep>
+        </deps>
+    </settings>
+    <dataSource name="newmodule_listing_data_source" component="Magento_Ui/js/grid/provider">
+        <settings>
+            <storageConfig>
+                <param name="indexField" xsi:type="string">entity_id</param>
+            </storageConfig>
+            <updateUrl path="mui/index/render"/>
+        </settings>
+        <aclResource>Embitel_Mymodule2::mymodule2_config</aclResource>
+        <dataProvider class="Magento\Cms\Ui\Component\DataProvider" name="newmodule_listing_data_source">
+            <settings>
+                <requestFieldName>entity_id</requestFieldName>
+                <primaryFieldName>entity_id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+    <listingToolbar name="listing_top">
+        <settings>
+            <sticky>true</sticky>
+        </settings>
+        <bookmark name="bookmarks"/>
+        <columnsControls name="columns_controls"/>
+        <filterSearch name="entity_id"/>
+        <filters name="listing_filters">
+            <settings>
+                <templates>
+                    <filters>
+                        <select>
+                            <param name="template" xsi:type="string">ui/grid/filters/elements/ui-select</param>
+                            <param name="component" xsi:type="string">Magento_Ui/js/form/element/ui-select</param>
+                        </select>
+                    </filters>
+                </templates>
+            </settings>
+            <filterSelect name="entity_id" provider="${ $.parentName }">
+                <settings>
+                    <captionValue>0</captionValue>
+                  
+                    <label translate="true">Store View</label>
+                    <dataScope>entity_id</dataScope>
+                    <imports>
+                        <link name="visible">ns = ${ $.ns }, index = ${ $.index }:visible</link>
+                    </imports>
+                </settings>
+            </filterSelect>
+        </filters>
+        <massaction name="listing_massaction">
+          
+          <!-- Mass ActionOption -->
+            <action name="delete">
+                <settings>
+                    <confirm>
+                        <message translate="true">Are you sure you want to delete selected items?</message>
+                        <title translate="true">Delete items</title>
+                    </confirm>
+                    <url path="*/*/massDelete"/>
+                    <type>delete</type>
+                    <label translate="true">Delete</label>
+                </settings>
+            </action>
+
+
+        </massaction>
+        
+        <paging name="listing_paging"/>
+    </listingToolbar>
+    <columns name="cms_block_columns">
+        <settings>
+            <editorConfig>
+                <param name="clientConfig" xsi:type="array">
+                    <item name="saveUrl" xsi:type="url" path="cms/block/inlineEdit"/>
+                    <item name="validateBeforeSave" xsi:type="boolean">false</item>
+                </param>
+                <param name="indexField" xsi:type="string">entity_id</param>
+                <param name="enabled" xsi:type="boolean">true</param>
+                <param name="selectProvider" xsi:type="string">newmodule_listing.newmodule_listing.cms_block_columns.ids</param>
+            </editorConfig>
+            <childDefaults>
+                <param name="fieldAction" xsi:type="array">
+                    <item name="provider" xsi:type="string">newmodule_listing.newmodule_listing.cms_block_columns_editor</item>
+                    <item name="target" xsi:type="string">startEdit</item>
+                    <item name="params" xsi:type="array">
+                        <item name="0" xsi:type="string">${ $.$data.rowIndex }</item>
+                        <item name="1" xsi:type="boolean">true</item>
+                    </item>
+                </param>
+            </childDefaults>
+        </settings>
+
+        <selectionsColumn name="ids">
+            <settings>
+                <indexField>entity_id</indexField>
+            </settings>
+        </selectionsColumn>
+        
+
+       <column name="entity_id">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Entity_ID</label>
+                <sorting>asc</sorting>
+            </settings>
+        </column>
+
+        <column name="pincode">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Zipcode</label>
+                <sorting>asc</sorting>
+            </settings>
+        </column>
+
+
+         <column name="state">
+            <settings>
+                <filter>text</filter>
+                <editor>
+                    <validation>
+                        <rule name="required-entry" xsi:type="boolean">true</rule>
+                    </validation>
+                    <editorType>text</editorType>
+                </editor>
+                <label translate="true">State</label>
+            </settings>
+        </column>
+
+      <column name="city">
+            <settings>
+                <label translate="true">City</label>
+                <bodyTmpl>ui/grid/cells/html</bodyTmpl>
+                <sortable>false</sortable>
+            </settings>
+        </column>
+
+
+          <!-- <column name="cod">
+            <settings>
+                <filter>text</filter>
+                <dataType>text</dataType>
+                <label translate="true">Cash on Delivery</label>
+            </settings>
+        </column> -->
+
+         <column name="days" >
+            <settings>
+                <filter>text</filter>
+                <dataType>text</dataType>
+                <label translate="true">Days to Deliver</label>
+            </settings>
+        </column>
+
+
+            <actionsColumn name="actions" class="Custform\Newmodule\Ui\Component\Listing\Column\PageActions">
+            <settings>
+                <indexField>entity_id</indexField>
+                <resizeEnabled>false</resizeEnabled>
+                <resizeDefaultWidth>107</resizeDefaultWidth>
+            </settings>
+        </actionsColumn>
+        
+     </columns>  
+</listing>

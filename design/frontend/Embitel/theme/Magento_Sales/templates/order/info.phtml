@@ -1,0 +1,102 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+?>
+<?php /** @var $block \Magento\Sales\Block\Order\Info */ ?>
+<?php $_order = $block->getOrder() ?>
+<div class="block block-order-details-view">
+    <div class="block-title">
+        <strong><?= $block->escapeHtml(__('Order Information')) ?></strong>
+    </div>
+   
+    <div class="block-content">
+        <?php if (!$_order->getIsVirtual()) : ?>
+            <div class="box box-order-shipping-address">
+                <strong class="box-title"><span><?= $block->escapeHtml(__('Shipping Address')) ?></span></strong>
+                <div class="box-content">
+                    <address><?= /* @noEscape */ $block->getFormattedAddress($_order->getShippingAddress()) ?></address>
+                </div>
+            </div>
+<?php
+
+            $shippingDescription = $_order->getShippingDescription();
+            // Get the pincode entered by the user
+            // $pincode = $_POST['shipping']['postcode']; // Replace this with the actual field name from the checkout form
+            ?>
+
+            
+            <!-- block to be added  -->
+
+            <div class="box box-order-shipping-method">
+                <strong class="box-title">
+                    <span><?= $block->escapeHtml(__('Shipping Method')) ?></span>
+                </strong>
+                <div class="box-content">
+                
+                <?php if ($_order->getShippingDescription()) : ?>
+                    <?= $block->escapeHtml($_order->getShippingDescription()) ?>
+                <?php else : ?>
+                    <?= $block->escapeHtml(__('No shipping information available')) ?>
+                <?php endif; ?>
+                
+                <div>
+
+    <!-- added code for displaying delivery date -->
+                <div class="box-content">
+                 <?php
+                 $shippingAddress = $_order->getShippingAddress();
+                 if ($shippingAddress) {
+                 $pincode = $shippingAddress->getPostcode();
+                 }
+                ?>
+
+                <!-- Pincode checker -->
+                <form action="" id="delivery-date-form">
+                <div id="delivery-date-result" ></div>  
+                <input type="hidden" value="<?php echo "$pincode";?>" id="pincode" name="pincode" />
+                </form>
+
+                </div>
+                </div>
+                </div>
+            </div>
+        <?php endif; ?>
+        
+
+        <div class="box box-order-billing-address">
+            <strong class="box-title">
+                <span><?= $block->escapeHtml(__('Billing Address')) ?></span>
+            </strong>
+            <div class="box-content">
+                <address><?= /* @noEscape */ $block->getFormattedAddress($_order->getBillingAddress()) ?></address>
+            </div>
+        </div>
+        <div class="box box-order-billing-method">
+            <strong class="box-title">
+                <span><?= $block->escapeHtml(__('Payment Method')) ?></span>
+            </strong>
+            <div class="box-content">
+                <?= $block->getPaymentInfoHtml() ?>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- verification through ajax call -->
+<script>
+    require(['jquery'], function($) {
+    $(document).ready(function() {
+    $.ajax({
+    url: '<?php echo $block->getBaseUrl() . 'mymodule/index/deliverydate'; ?>', 
+    type: 'POST',
+    data: $('#delivery-date-form').serialize(),
+    success: function(data) {
+    $('#delivery-date-result').html(data);
+    }   
+});
+});
+});
+</script>
