@@ -58,3 +58,4 @@ class Save extends Action
         return $resultPageFactory->setPath('*/*/index');
     }
 }
+

@@ -19,7 +19,7 @@ class DeliveryDate extends \Magento\Framework\App\Action\Action
     $result = $this->resultFactory->create(\Magento\Framework\Controller\ResultFactory::TYPE_JSON);
 
     $pincode = $this->getRequest()->getParam('pincode');
-
+    
     if (empty($pincode) || strlen($pincode) != 6) {
         $result->setData('Please enter a valid 6 digit pincode!');
         return $result;
@@ -31,13 +31,15 @@ class DeliveryDate extends \Magento\Framework\App\Action\Action
         $currentTimestamp = time();
         //integer val checking
         $daysToAdd = max(0, intval($deliveryDate)); 
+
         $deliveryTimestamp = strtotime("+$daysToAdd days", $currentTimestamp);
+        
         $deliveryDateFormatted = date('d F Y', $deliveryTimestamp);
         $deliveryMessage = 'Delivery on ' . $deliveryDateFormatted;
 
         $result->setData($deliveryMessage);
     } else {
-        $result->setData('Delivery date not available for this pincode!');
+        $result->setData('Shipment is not available for this pincode!');
     }
 
     return $result;
