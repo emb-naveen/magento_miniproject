@@ -40,32 +40,27 @@ class Employee extends Action
      * @param Context $context
      */
     public function __construct(
-         Registry $registry,
-         PageFactory $resultPageFactory,
-
-          ForwardFactory $resultForwardFactory,
-          Context $context)
-          {
+        Registry $registry,
+        PageFactory $resultPageFactory,
+        ForwardFactory $resultForwardFactory,
+        Context $context
+    ) {
             $this->coreRegistry = $registry;
             $this->resultPageFactory =$resultPageFactory;
 
             $this->resultForwardFactory =$resultForwardFactory;
             parent::__construct($context);
-          }
+    }
           /**
            * @return \Magento\Framework\View\Result\Page
            */
-          public function execute()
-          {
+    public function execute()
+    {
 
         // die("test");
         $resultPage=$this->resultPageFactory->create();
         $resultPage->addBreadcrumb(__('Employee details'), __('Employee details'));
         $resultPage->getConfig()->getTitle()->prepend(__('Add Pincode'));
         return $resultPage;
-
-
-          }
-
-
-        }
+    }
+}

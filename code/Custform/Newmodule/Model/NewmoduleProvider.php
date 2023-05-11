@@ -5,7 +5,6 @@ use Magento\Framework\App\Request\DataPersistorInterface;
 use Magento\Ui\DataProvider\AbstractDataProvider;
 use Custform\Newmodule\Model\ResourceModel\Newmodule\CollectionFactory;
 
-
 class NewmoduleProvider extends AbstractDataProvider
 {
     /**
@@ -25,16 +24,15 @@ class NewmoduleProvider extends AbstractDataProvider
         $primaryFieldName,
         $requestFieldName,
         CollectionFactory $NewmoduleCollectionFactory,
-        array $meta=[],
-        array $data=[]
-    ){
+        array $meta = [],
+        array $data = []
+    ) {
         $this->Collection=$NewmoduleCollectionFactory->create();
-        parent::__construct($name,$primaryFieldName,$requestFieldName,$meta,$data);
-
+        parent::__construct($name, $primaryFieldName, $requestFieldName, $meta, $data);
     }
-public function getdata(){
-    $this->loadData=[];
-    return $this->loadData;
-}
-
+    public function getdata()
+    {
+        $this->loadData=[];
+        return $this->loadData;
+    }
 }

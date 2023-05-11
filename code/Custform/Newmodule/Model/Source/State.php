@@ -26,4 +26,3 @@ class State implements OptionSourceInterface
         return $options;
     }
 }
-
